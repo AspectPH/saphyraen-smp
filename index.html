@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100b1c">
+  <title>SAPHYRAEN SMP | Official Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark">S</span><span>SAPHYRAEN <small>SMP COMMUNITY</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+    <nav id="nav">
+      <a href="#home" class="active">Home</a><a href="#status">Server</a><a href="#leaderboards">Leaderboards</a><a href="#events">Events</a><a href="#news">News</a><a href="#team">Staff</a>
+    </nav>
+    <a class="nav-cta" id="discordTop" href="#" target="_blank" rel="noopener">Join Discord ↗</a>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> BEDROCK COMMUNITY • SURVIVE TOGETHER</div>
+        <h1>Your world.<br><span>Our story.</span></h1>
+        <p class="hero-lead">Welcome to SAPHYRAEN SMP — build your legacy, meet new friends, and make every adventure count.</p>
+        <div class="hero-actions"><a class="button primary" href="#status">Explore the server <span>→</span></a><a class="button secondary" id="discordHero" href="#" target="_blank" rel="noopener">Community Discord</a></div>
+        <div class="hero-meta"><div><strong>BEDROCK</strong><small>Edition</small></div><i></i><div><strong>COMMUNITY</strong><small>Survival together</small></div><i></i><div><strong>YOUR STORY</strong><small>Starts here</small></div></div>
+      </div>
+      <div class="hero-art">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="crystal"><div class="crystal-core"></div></div>
+        <div class="float-card card-top"><span class="mini-dot"></span> A WORLD TO CALL HOME</div>
+        <div class="float-card card-bottom"><span>✦</span> ADVENTURE AWAITS</div>
+        <div class="art-caption">SAPHYRAEN <span>✧</span> SMP</div>
+      </div>
+    </section>
+
+    <section class="status-strip section" id="status">
+      <div class="section-kicker">01 / SERVER STATUS</div>
+      <div class="status-panel">
+        <div class="status-main"><span class="status-light" id="statusLight"></span><div><small>LIVE SERVER STATUS</small><h2 id="serverState">Not configured yet</h2><p id="serverAddress">Add your Bedrock IP in Admin Dashboard</p></div></div>
+        <div class="status-stat"><strong id="playerCount">—</strong><small>PLAYERS ONLINE</small></div>
+        <div class="status-stat"><strong id="serverVersion">Bedrock</strong><small>EDITION</small></div>
+        <button class="icon-button" id="refreshStatus" title="Refresh server status">↻</button>
+      </div>
+      <p class="micro-note" id="statusNote">Server status checks use a public status endpoint. Set your server address and port in the dashboard.</p>
+    </section>
+
+    <section class="section content-section" id="leaderboards">
+      <div class="section-heading"><div><div class="section-kicker">02 / THE COMMUNITY</div><h2>Hall of <span>Legends.</span></h2></div><p>Celebrating the players who make this world special.</p></div>
+      <div class="leaderboard card-surface">
+        <div class="table-head"><span>RANK</span><span>PLAYER</span><span>STAT</span><span>VALUE</span></div>
+        <div id="leaderboardRows"></div>
+      </div>
+    </section>
+
+    <section class="section content-section" id="events">
+      <div class="section-heading"><div><div class="section-kicker">03 / WHAT'S HAPPENING</div><h2>Gather. Play. <span>Repeat.</span></h2></div><p>Keep an eye on the calendar so you never miss a community moment.</p></div>
+      <div class="event-grid" id="eventGrid"></div>
+    </section>
+
+    <section class="section content-section news-section" id="news">
+      <div class="section-heading"><div><div class="section-kicker">04 / LATEST UPDATES</div><h2>From the <span>Realm.</span></h2></div><p>Announcements, updates, and stories from our SMP.</p></div>
+      <div class="news-grid" id="newsGrid"></div>
+    </section>
+
+    <section class="section content-section" id="team">
+      <div class="section-heading"><div><div class="section-kicker">05 / THE PEOPLE BEHIND IT</div><h2>Meet the <span>Staff.</span></h2></div><p>Here to help keep SAPHYRAEN welcoming, fair, and fun.</p></div>
+      <div class="team-grid" id="teamGrid"></div>
+    </section>
+
+    <section class="join-banner section">
+      <div><div class="section-kicker">YOUR NEXT CHAPTER</div><h2>Ready to make<br><span>your mark?</span></h2><p>Join the community and be part of the story.</p></div>
+      <a class="button primary" id="discordBottom" href="#" target="_blank" rel="noopener">Join our Discord ↗</a>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#home"><span class="brand-mark">S</span><span>SAPHYRAEN <small>SMP COMMUNITY</small></span></a><p>Made for players, built by the community.</p><span class="copyright">© <span id="year"></span> SAPHYRAEN SMP</span></footer>
+
+  <button class="admin-fab" id="adminOpen" title="Open admin dashboard">⚙</button>
+  <div class="modal-backdrop" id="adminModal" aria-hidden="true">
+    <section class="admin-modal">
+      <div class="admin-header"><div><div class="section-kicker">COMMUNITY CONTROL CENTER</div><h2>Admin <span>Dashboard</span></h2></div><button class="close-button" id="adminClose">×</button></div>
+      <div class="admin-warning">Demo dashboard: changes are saved in this browser only. Do not enter private passwords or sensitive information. For a public site, use a secure backend before giving staff access.</div>
+      <div class="admin-tabs"><button class="tab active" data-tab="general">General</button><button class="tab" data-tab="leaderboard">Leaderboard</button><button class="tab" data-tab="events">Events</button><button class="tab" data-tab="news">News</button><button class="tab" data-tab="team">Staff</button></div>
+      <div class="tab-panel active" id="tab-general">
+        <label>Bedrock server address<input id="cfgAddress" placeholder="play.example.net"></label>
+        <div class="form-row"><label>Port<input id="cfgPort" type="number" placeholder="19132"></label><label>Discord invite URL<input id="cfgDiscord" placeholder="https://discord.gg/yourcode"></label></div>
+        <button class="button primary save-button" id="saveGeneral">Save settings</button>
+      </div>
+      <div class="tab-panel" id="tab-leaderboard">
+        <p class="admin-hint">Enter sample/community leaderboard values. These are manually managed; they do not sync with in-game stats automatically.</p>
+        <div id="leaderboardEditor"></div><button class="button secondary" id="addPlayer">+ Add player</button><button class="button primary save-button" id="saveLeaderboard">Save leaderboard</button>
+      </div>
+      <div class="tab-panel" id="tab-events">
+        <div id="eventEditor"></div><button class="button secondary" id="addEvent">+ Add event</button><button class="button primary save-button" id="saveEvents">Save events</button>
+      </div>
+      <div class="tab-panel" id="tab-news">
+        <div id="newsEditor"></div><button class="button secondary" id="addNews">+ Add announcement</button><button class="button primary save-button" id="saveNews">Save announcements</button>
+      </div>
+      <div class="tab-panel" id="tab-team">
+        <div id="teamEditor"></div><button class="button secondary" id="addStaff">+ Add staff member</button><button class="button primary save-button" id="saveTeam">Save staff</button>
+      </div>
+      <div class="admin-footer"><span id="saveMessage">Ready</span><button class="text-button" id="resetDemo">Reset demo content</button></div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
