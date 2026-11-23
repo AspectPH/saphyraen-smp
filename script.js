@@ -66,19 +66,56 @@ $("addEvent").onclick=()=>addRow("eventEditor","ev",["","",""],"");
 $("addNews").onclick=()=>addRow("newsEditor","nw",["",""],"");
 $("addStaff").onclick=()=>addRow("teamEditor","tm",["",""],"");
 $("resetDemo").onclick=()=>{if(confirm("Reset all website content to the original demo data?")){data=structuredClone(defaults);save();render();openAdmin();}};
-async function checkStatus(){
- const address=data.settings.address,port=data.settings.port||"19132";
- if(!address){$("serverState").textContent="Not configured yet";$("serverAddress").textContent="Add your Bedrock IP in Admin Dashboard";$("playerCount").textContent="—";$("statusLight").className="status-light";return;}
- $("serverState").textContent="Checking…";$("serverAddress").textContent=`${address}:${port}`;
- try{
-  const response=await fetch(`https://api.mcsrvstat.us/bedrock/3/${encodeURIComponent(address)}:${encodeURIComponent(port)}`);
-  if(!response.ok)throw new Error("Status service unavailable");
-  const result=await response.json();
-  if(result.online){$("serverState").textContent="Online";$("statusLight").className="status-light online";$("playerCount").textContent=result.players?.online??"0";$("serverVersion").textContent=result.version||"Bedrock";}
-  else{$("serverState").textContent="Offline";$("statusLight").className="status-light offline";$("playerCount").textContent="0";}
-  $("statusNote").textContent="Status last checked just now. Public status services may occasionally be delayed or unavailable.";
- }catch(e){$("serverState").textContent="Status unavailable";$("statusLight").className="status-light";$("playerCount").textContent="—";$("statusNote").textContent="Could not reach the public status service. Check the IP/port or try again later.";}
+async function checkStatus() {
+  const address = data.settings.address;
+  const port = data.settings.port || "19132";
+
+  if (!address) {
+    $("serverState").textContent = "Not configured yet";
+    $("serverAddress").textContent = "Add your Bedrock IP in Admin Dashboard";
+    $("playerCount").textContent = "—";
+    $("statusLight").className = "status-light";
+    return;
+  }
+
+  $("serverState").textContent = "Checking…";
+  $("serverAddress").textContent = `${address}:${port}`;
+
+  try {
+    const response = await fetch(
+      `https://api.mcsrvstat.us/bedrock/3/${encodeURIComponent(address)}:${encodeURIComponent(port)}`
+    );
+
+    if (!response.ok) throw new Error("Status service unavailable");
+
+    const result = await response.json();
+
+    if (result.online === true) {
+      $("serverState").textContent = "Online";
+      $("statusLight").className = "status-light online";
+      $("playerCount").textContent = result.players?.online ?? "—";
+      $("serverVersion").textContent = result.version || "Bedrock";
+    } else if (result.errors?.length > 0) {
+      $("serverState").textContent = "Status unavailable";
+      $("statusLight").className = "status-light";
+      $("playerCount").textContent = "—";
+    } else {
+      $("serverState").textContent = "Offline";
+      $("statusLight").className = "status-light offline";
+      $("playerCount").textContent = "0";
+    }
+
+    $("statusNote").textContent =
+      "Status provided by public server status service. Results may be delayed.";
+  } catch (error) {
+    $("serverState").textContent = "Status unavailable";
+    $("statusLight").className = "status-light";
+    $("playerCount").textContent = "—";
+    $("statusNote").textContent =
+      "Unable to verify server status. The server may still be running.";
+  }
 }
+
 $("refreshStatus").onclick=checkStatus;
 $("menuToggle").onclick=()=>$("nav").classList.toggle("open");
 $("nav").querySelectorAll("a").forEach(a=>a.onclick=()=>$("nav").classList.remove("open"));
