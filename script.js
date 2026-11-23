@@ -91,6 +91,22 @@ async function checkStatus() {
     const result = await response.json();
 
     if (result.online === true) {
+    $("serverState").textContent = "Online";
+    $("statusLight").className = "status-light online";
+    $("playerCount").textContent = result.players?.online ?? "—";
+    $("serverVersion").textContent = result.version || "Bedrock";
+
+} else if (result.debug?.errors?.length > 0) {
+    $("serverState").textContent = "Unable to Verify";
+    $("statusLight").className = "status-light";
+    $("playerCount").textContent = "—";
+    $("serverVersion").textContent = "Bedrock";
+
+} else {
+    $("serverState").textContent = "Offline";
+    $("statusLight").className = "status-light offline";
+    $("playerCount").textContent = "0";
+    }
       $("serverState").textContent = "Online";
       $("statusLight").className = "status-light online";
       $("playerCount").textContent = result.players?.online ?? "—";
