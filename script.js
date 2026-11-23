@@ -66,7 +66,6 @@ $("addEvent").onclick=()=>addRow("eventEditor","ev",["","",""],"");
 $("addNews").onclick=()=>addRow("newsEditor","nw",["",""],"");
 $("addStaff").onclick=()=>addRow("teamEditor","tm",["",""],"");
 $("resetDemo").onclick=()=>{if(confirm("Reset all website content to the original demo data?")){data=structuredClone(defaults);save();render();openAdmin();}};
-
 async function checkStatus() {
   const address = data.settings.address.trim();
   const port = data.settings.port || "19132";
@@ -75,12 +74,14 @@ async function checkStatus() {
     $("serverState").textContent = "Not configured yet";
     $("serverAddress").textContent = "Add your Bedrock IP in Admin Dashboard";
     $("playerCount").textContent = "—";
+    $("serverVersion").textContent = "Bedrock";
     $("statusLight").className = "status-light";
     return;
   }
 
   $("serverState").textContent = "Checking...";
   $("serverAddress").textContent = `${address}:${port}`;
+  $("playerCount").textContent = "—";
   $("statusLight").className = "status-light";
 
   try {
@@ -90,7 +91,7 @@ async function checkStatus() {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error("Status service unavailable");
+      throw new Error("Status API unavailable");
     }
 
     const result = await response.json();
@@ -128,7 +129,9 @@ async function checkStatus() {
     $("serverState").textContent = "Unable to Verify";
     $("statusLight").className = "status-light";
     $("playerCount").textContent = "—";
-    $("serverNote").textContent =
+    $("serverVersion").textContent = "Bedrock";
+
+    $("statusNote").textContent =
       "Unable to verify server status. The server may still be running.";
   }
 }
