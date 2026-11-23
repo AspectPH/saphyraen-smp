@@ -95,7 +95,11 @@ async function checkStatus() {
       $("statusLight").className = "status-light online";
       $("playerCount").textContent = result.players?.online ?? "—";
       $("serverVersion").textContent = result.version || "Bedrock";
-    } else if (result.errors?.length > 0) {
+} else if (
+  result.errors?.length > 0 ||
+  result.debug?.bedrock === false ||
+  result.debug?.ping === false
+) {
       $("serverState").textContent = "Status unavailable";
       $("statusLight").className = "status-light";
       $("playerCount").textContent = "—";
